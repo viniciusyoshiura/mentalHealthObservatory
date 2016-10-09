@@ -35,7 +35,13 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Enviar</button>
+              	<?php
+              		echo $this->Html->link(
+    					'Voltar',
+    					array('controller' => 'home', 'action' => 'index'),
+    					array('confirm' => 'Tem certeza que deseja voltar?', 'class' => 'btn btn-warning pull-left'));
+               	?>
+                <button type="submit" class="btn btn-primary pull-right">Enviar</button>
               </div>
             </form>
           </div>
