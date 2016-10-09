@@ -32,9 +32,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quem Somos<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Equipe OSM</a></li>
+                        <li><a href="/mentalHealthObservatory/home/team">Equipe OSM</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Contato</a></li>
+                        <li><a href="/mentalHealthObservatory/home/contact">Contato</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -65,19 +65,19 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <?php echo $this->Html->image('user4-128x128.jpg', array('alt' => 'User Image', 'class' => 'user-image')); ?>
+              <?php echo $this->Html->image('domingosAlves.gif', array('alt' => 'User Image', 'class' => 'user-image')); ?>
          
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexandra Hill</span>
+              <span class="hidden-xs">Domingos Alves</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <?php echo $this->Html->image('user4-128x128.jpg', array('alt' => 'User Image', 'class' => 'img-circle')); ?>
+                <?php echo $this->Html->image('domingosAlves.gif', array('alt' => 'User Image', 'class' => 'img-circle')); ?>
 
                 <p>
-                  Alexandra Hill - Gestora de Saúde Mental
-                 <small>Departamento Regional de Saúde XIII - Ribeirão Preto</small>
+                  Domingos Alves - Docente
+                 <small>Departamento de Medicina Social FMRP - USP</small>
                 </p>
               </li>
               <!-- Menu Body -->
