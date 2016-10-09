@@ -35,6 +35,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
+
+    <style>
+        @import 'https://fonts.googleapis.com/css?family=Lato';
+
+        *{
+            font-family: 'Lato', sans-serif;
+        }
+</style>
+    
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
     <div class="wrapper">

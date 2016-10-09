@@ -20,6 +20,16 @@ class HomeController extends AppController {
 
 	}
 
+	public function historyosm() {
+
+
+	}
+
+	public function historyorah() {
+
+
+	}
+
 }
 
 ?>

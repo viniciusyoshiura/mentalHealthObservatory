@@ -40,9 +40,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Histórico<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">OSM</a></li>
+                        <li><a href="/mentalHealthObservatory/home/historyosm">OSM</a></li>
                         <li class="divider"></li>
-                        <li><a href="http://ciis.fmrp.usp.br/sisam/sisam13/" target='_blank'>SISAM 13</a></li>
+                        <li><a href="/mentalHealthObservatory/home/historyorah">ORAH</a></li>
                     </ul>
                 </li>
                 <li>
