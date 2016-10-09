@@ -56,10 +56,10 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="http://ciis.fmrp.usp.br/orah/" target="_blank">ORAH</a></li>
-            <li><a href="portalsaude.saude.gov.br/" target="_blank">Ministério da Saúde</a></li>
-            <li><a href="datasus.saude.gov.br/" target="_blank">DATASUS</a></li>
-            <li><a href="cnes.datasus.gov.br/" target="_blank">CNES</a></li>
-            <li><a href="www.apho.org.uk/" target="_blank">APHO</a></li>
+            <li><a href="http://portalsaude.saude.gov.br/" target="_blank">Ministério da Saúde</a></li>
+            <li><a href="http://datasus.saude.gov.br/" target="_blank">DATASUS</a></li>
+            <li><a href="http://cnes.datasus.gov.br/" target="_blank">CNES</a></li>
+            <li><a href="http://www.apho.org.uk/" target="_blank">APHO</a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-institution"></i> <span>Parceiros</span></a></li>
