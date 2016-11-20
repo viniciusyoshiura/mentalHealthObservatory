@@ -300,6 +300,11 @@ class FerramentasController extends AppController {
 
 		}
 
+		function arrayMunIBGE (){
+			$vetor = array(350100, 350590, 350780, 350940, 351090, 354625, 354790, 350560, 351460, 351860, 352430, 353130, 353950, 354020, 354090, 355170, 351310, 351885, 352510, 352760, 354340, 354750, 354760, 355090, 355140, 355150); 
+			return $vetor;
+		}
+
 		//array com os dados do form (fluxoaltas.ctp)
 		$data = $this->request->data;
 		print_r($data);
@@ -509,8 +514,10 @@ class FerramentasController extends AppController {
 			$pessoasFiltro2 = null;
 			$result = null;
 			$result2 = null;
-			
-
+			$resultFinal = null;
+			$arrayHosp = null;
+			$vetorIBGE = null;
+			$resultFinal = null;
 
 		if($cod_output != 0){	
 		   	 
@@ -915,6 +922,25 @@ class FerramentasController extends AppController {
 						}//fim for
 					}
 				}//fim for
+
+				$arrayHosp = arrayHospIBGE();
+				$vetorIBGE = arrayMunIBGE();
+
+				for ($i=0; $i < count($arrayHosp) ; $i++) { 
+					for ($j=0; $j < count($vetorIBGE) ; $j++) { 
+						$aux = 0;
+						for ($k=0; $k < count($result2) ; $k++) { 
+							if($arrayHosp[$i] == $result2[$k][4] && $vetorIBGE[$j] == $result2[$k][2]){
+								$resultFinal[$aux][0] = $result2[$k][2];
+								$resultFinal[$aux][1] = $result2[$k][4];
+								$aux++;
+								$resultFinal[$aux][2] = $aux; 
+								$aux2++;
+							}
+						}
+					}
+
+				}
 			
 			}//fim if
 
@@ -923,9 +949,7 @@ class FerramentasController extends AppController {
 
 		//passa dados para a view
 		$this->set('cod_output', $cod_output);
-		$this->set('result2', $result2);
-		$arrayHosp = arrayHospIBGE();
-	   	$this->set('arrayHospIBGE', $arrayHosp);
+		$this->set('resultFinal', $resultFinal);
 	   	
 
 
@@ -936,7 +960,7 @@ class FerramentasController extends AppController {
 	}
 
 	public function indicadores(){
-		
+
 	}
 
 

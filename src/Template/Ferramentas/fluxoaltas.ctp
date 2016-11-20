@@ -324,7 +324,7 @@ function listaHospital(cod_mnibge,nomecampo_hosp) {
 	
 	echo $cod_output;
 
-	/*if ($cod_output == 5) {
+	if ($cod_output == 1){
 
 			//Gera mapa
 
@@ -497,196 +497,15 @@ function listaHospital(cod_mnibge,nomecampo_hosp) {
 		$coord[355150] = array(655,335);
 		$coord[355170] = array(420,270);
 
-		
-		$ano = $params['ano'];
-		$mes = $params['mes'];
-
-		$cod_cid10 = $params['cod_cid10'];
-		$cod_sexo = $params['cod_sexo'];
-		$cod_catint = $params['cod_catint'];
-
-		$cod_csaida2 = '';
-		if ((count($cod_csaida) > 0) && (count($cod_csaida) < 7)) {
-			foreach ($cod_csaida as $value) {
-				if ($cod_csaida2)
-					$cod_csaida2 .= ',';
-				$cod_csaida2 .= '?';
-			}
-		}
-
-		if ($cod_cid10) {
-				$minmax_cid10 = explode('-', $cod_cid10);
-				$cod_cid10_min = $minmax_cid10[0];
-				$cod_cid10_max = $minmax_cid10[1];
-		}
-
-
-		$extra = '';
-		$extra_tabela = '';
-		$extra_group = '';
-		$extra_from = '';
-
-		if ($ano)
-			$extra .= ' AND EXTRACT(YEAR FROM data_alta) = ?';
-		if ($mes)
-			$extra .= ' AND EXTRACT(MONTH FROM data_alta) = ?';
-
-		$procede_regiao = $params['procede_regiao'];
-		$procede_microregiao = $params['procede_microregiao'];
-		$procede_municipio = $params['procede_municipio'];
-
-		if ($procede_municipio != '000000')
-			$extra .= ' AND alta.cod_mnibge = ?';
-		else if ($procede_microregiao != '00') {
-			$extra .= ' AND mn_mregiao_alta.cod_mregiao = ? AND mn_mregiao_alta.cod_mnibge = alta.cod_mnibge';
-		}
-
-		$microregiao = $params['microregiao'];
-		$municipio = $params['municipio'];
-		$hospital = $params['hospital'];
-
-		if ($hospital != '000000')
-			$extra .= ' AND alta.cod_hosp = ?';
-		else if ($municipio != '000000')
-			$extra .= ' AND hospital.cod_mnibge = ?';
-		else if ($microregiao != '00')
-			$extra .= ' AND mn_mregiao_hosp.cod_mregiao = ?';
-
-		if ($cod_cid10_min || $cod_cid10_max || $cod_cid10_lista) {
-			$extra_tabela = ', afeccao';
-			$extra .= ' AND afeccao.cod_alta = alta.cod_alta AND afeccao.ordem_afeccao = 1';
-		}
-
-		if ($cod_cid10_lista) {
-				$extra .= " AND afeccao.cod_cid10 IN ($cod_cid10_lista)";
-		}
-		else {
-			if ($cod_cid10_min)
-				$extra .= ' AND substring(afeccao.cod_cid10 for 3) >= ?';
-			if ($cod_cid10_max)
-				$extra .= ' AND substring(afeccao.cod_cid10 for 3) <= ?';
-		}
-
-		if ((count($params['faixa_etaria']) > 0) && (count($params['faixa_etaria']) < 12)) {
-			$extra .= ' AND (';
-			foreach ($params['faixa_etaria'] as $n=>$value) {
-				$minmax_idade = explode('-', $value);
-				if (count($minmax_idade) == 3) {
-					if ($n > 0)
-						$extra .= ' OR';
-					if ($minmax_idade[2] == 'a')
-						$extra .= " (substring(idade_int from 4 for 1) = 'a' AND idade_int >= ? and idade_int <= ?)";
-					else
-						$extra .= " (substring(idade_int from 4 for 1) = 'm' OR substring(idade_int from 4 for 1) = 'd' OR idade_int = '000a')";
-				}
-			}
-			$extra .= ')';
-		}
-
-		if ($cod_sexo)
-			$extra .= ' AND cod_sexo = ?';
-
-		if ($cod_csaida)
-			$extra .= " AND cod_csaida IN ($cod_csaida)";
-
-		if ($cod_catint == 1)
-			$extra .= ' AND cod_catint IN (?,?,?,?,?,?)';
-		else if ($cod_catint == 2)
-			$extra .= ' AND cod_catint NOT IN (?,?,?,?,?,?)';
-
-		if ($_REQUEST['modo'] == 'mapa') {
-			$tipo = 'cod';
-		}
-		else {
-			$tipo = 'dsc';
-			$extra_from .= ', hospital.dsc_hosp as dsc_hosp';
-			$extra_group .= ', hospital.dsc_hosp';
-		}
-
-		$select = new selectQuery(
-					"alta LEFT JOIN mn_mregiao as mn_mregiao_alta ON mn_mregiao_alta.cod_mnibge = alta.cod_mnibge, hospital, mn_mregiao as mn_mregiao_hosp, mn_ibge as mn_ibge_alta, mn_ibge as mn_ibge_hosp $extra_tabela",
-					"mn_ibge_alta.{$tipo}_mnibge as {$tipo}_mnibge_alta, mn_mregiao_alta.cod_mregiao as cod_mregiao_alta, mn_ibge_hosp.{$tipo}_mnibge as {$tipo}_mnibge_hosp, count(*) as total $extra_from",
-					"WHERE  alta.cod_hosp = hospital.cod_hosp
-						AND mn_mregiao_hosp.cod_mnibge = hospital.cod_mnibge
-						AND mn_ibge_alta.cod_mnibge = alta.cod_mnibge
-						AND mn_ibge_hosp.cod_mnibge = hospital.cod_mnibge
-						$extra
-					GROUP BY mn_ibge_alta.{$tipo}_mnibge, mn_ibge_hosp.{$tipo}_mnibge, mn_mregiao_alta.cod_mregiao $extra_group");
 	
-		if ($ano)
-			$select->inInt($ano);
-		if ($mes)
-			$select->inInt($mes);
-
-		if ($procede_municipio != '000000')
-			$select->inStr($procede_municipio);
-		else if ($procede_microregiao != '00')
-			$select->inStr($procede_microregiao);
-
-		if ($hospital != '000')
-			$select->inStr($hospital);
-		else if ($municipio != '000000')
-			$select->inStr($municipio);
-		else if ($microregiao != '00')
-			$select->inStr($microregiao);
-
-		if ($cod_cid10 == '-1') {
-			if ($params['cod_cid10_lista']) {
-				foreach (explode(',',str_replace(' ','',$params['cod_cid10_lista'])) as $value) {
-					$select->inStr($value);
-				}
-			}
-		}
-		else {
-			if ($cod_cid10_min)
-				$select->inStr($cod_cid10_min);
-			if ($cod_cid10_max)
-				$select->inStr($cod_cid10_max);
-		}
-
-		if ((count($params['faixa_etaria']) > 0) && (count($params['faixa_etaria']) < 12)) {
-			foreach ($params['faixa_etaria'] as $value) {
-				$minmax_idade = explode('-', $value);
-				if (count($minmax_idade) == 3) {
-					if ($minmax_idade[2] == 'a') {
-						$select->inStr($minmax_idade[0].'a');
-						$select->inStr($minmax_idade[1].'a');
-					}
-				}
-			}
-		}
-
-		if ($cod_sexo)
-			$select->inStr($cod_sexo);
-
-		if ((count($params['cod_csaida']) > 0) && (count($params['cod_csaida']) < 6)) {
-			foreach ($params['cod_csaida'] as $value) {
-				$select->inStr($value);
-			}
-		}
-
-		if ($cod_catint == 1 || $cod_catint == 2) {
-			$select->inStr('200');
-			$select->inStr('201');
-			$select->inStr('202');
-			$select->inStr('204');
-			$select->inStr('207');
-			$select->inStr('208');
-		}
-
-		//die($select->getQuery());
-
-		$select->execute();
-
-		
-
-		if ($_REQUEST['modo'] == 'mapa') {
 			
-			if ( ($row = $select->resGetRowAssoc()) == false){ //Mensagem de aviso: fluxo não encontrado - saída de dados em forma de mapa
-				$source = imagecreatefromgif('../img/msgmaviso_ferramentafluxo.gif');
+		if ($resultFinal == null){  
+				//Mensagem de aviso: fluxo não encontrado - saída de dados em forma de mapa
+
+				$source = imagecreatefromgif('C:/wamp64/www/mentalHealthObservatory/webroot/img/msgmaviso_ferramentafluxo.gif');
 				imagepng($source);
-			}
-			else{
+		}
+		else{
 			$source = @imagecreatefromgif('mapa_regiao.gif');
 			imagesetthickness($source, 3);
 
@@ -708,35 +527,22 @@ function listaHospital(cod_mnibge,nomecampo_hosp) {
 
 			$max = 0;
 			
-			while (($row = $select->resGetRowAssoc()) !== false) {
 
-				if (!$row['cod_mregiao_alta'] && $procede_regiao == '13')
-					continue;
+			if ($resultFinal != null) {
+				$valor = count($resultFinal);
+				for ($i=0; $i < count($resultFinal); $i++) { 
 
-				if ($row['cod_mregiao_alta'] && $procede_regiao == '-1')
-					continue;
+					if ($resultFinal[$i][0] != $resultFinal[1])
+						$nivel = ceil($resultFinal[$i][2]*6/count($resultFinal))+1;
+					else
+						$nivel = 1;
 
-				if (!$row['cod_mregiao_alta']) {
-					$label_fora_drs13 = true;
-					$cod_mnibge_alta = 0;
+					desenhaLinha($source, $coord[$resultFinal[$i][0]][0], $coord[$resultFinal[$i][0]][1], 
+						$coord[$resultFinal[$i][1]][0], $coord[$resultFinal[$i][1]][1], $grad_color[$nivel], $valor);
 				}
-				else {
-					$cod_mnibge_alta = $row['cod_mnibge_alta'];
-				}
-				$cod_mnibge_hosp = $row['cod_mnibge_hosp'];
-				$total_hosp = $row['total'];
 
-				$valor = $demanda[$cod_mnibge_alta][$cod_mnibge_hosp] += $total_hosp;
-				$demanda[$cod_mnibge_alta][$cod_mnibge_hosp] = $valor;
-
-				$total += $total_hosp;
-
-				if ($valor > $max && $cod_mnibge_alta != $cod_mnibge_hosp)
-					$max = $valor;
 			}
-
-			if ($demanda != null) {
-				foreach ($demanda as $cod_mnibge_alta => $demanda2) {
+				/*foreach ($resultFinal as $cod_mnibge_alta => $demanda2) {
 					if ($demanda2 != null) {
 						foreach ($demanda2 as $cod_mnibge_hosp => $valor) {
 
@@ -749,25 +555,21 @@ function listaHospital(cod_mnibge,nomecampo_hosp) {
 						}
 					}
 				}
-			}
+				
 
-			foreach ($labels as $label)
-				drawText($label[0], $label[1], $label[2], $label[3]);
+				foreach ($labels as $label)
+					drawText($label[0], $label[1], $label[2], $label[3]);
 
-			if ($label_fora_drs13)
-				drawText($source, 0, 23, '                Fora do DRS XIII');
-
+				if ($label_fora_drs13)
+					drawText($source, 0, 23, '                Fora do DRS XIII');
+				*/
 			header("Content-Type: image/png");
 			imagepng($source);
-			}			
+		}
 			
-	} //fim construção do mapa - modo mapa de saída de dados
+	} //fim construção do mapa 
 	
-	
-
-
-		
-		else {*/
+		else {
 			echo"<!-- Início descricao da ferramenta -->
 			<div id='descricao'>
 			<div style='text-align: justify; margin-right: 30px' id='descricao'>
@@ -783,8 +585,8 @@ function listaHospital(cod_mnibge,nomecampo_hosp) {
 			</div>
 			<!-- Fim descricao da ferramenta --> 
 			";
-		//}
-	//}
+		}
+	
 ?>
 	</div>
 
