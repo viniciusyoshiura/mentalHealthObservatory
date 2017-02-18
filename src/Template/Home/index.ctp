@@ -20,7 +20,7 @@ td {
     <section class="content-header">
       <h1>Observatório de Saúde Mental</h1>
       <ol class="breadcrumb">
-        <li><a href="/mentalHealthObservatory/home"></i> OSM</a></li>
+        <li><a href="src/template/home/index.ctp"></i> OSM</a></li>
         <li class="active">Início</li>
       </ol>
     </section>
@@ -34,7 +34,7 @@ td {
           <h3 class="box-title">Sobre</h3>
 
           <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Esconder">
               <i class="fa fa-minus"></i></button>
             
           </div>

@@ -41,9 +41,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Fluxo de Altas</a></li>
+            <li><a href="/mentalHealthObservatory/ferramentas/fluxoaltas">Fluxo de Altas</a></li>
             <li><a href="#">Perfis Nosológicos</a></li>
-            <li><a href="#">Indicadores</a></li>
+            <li><a href="/mentalHealthObservatory/ferramentas/indicadores">Indicadores</a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-edit"></i> <span>Pesquisa</span></a></li>
