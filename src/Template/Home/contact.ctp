@@ -20,7 +20,7 @@
               <form action="#" method="post">
                 <div class="form-group">
                   <label for="email">E-mail</label>	
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail">
+                  <input type="email" class="form-control" id="email" name="email" value="teste@teste.orah" placeholder="Digite seu e-mail">
                 </div>
                 <div class="form-group">
                   <label for="name">Nome</label>
@@ -50,3 +50,9 @@
 
 
     </section>
+    <script> 
+
+    var email = $('#email').val();
+    console.log("email eh :" + email);
+
+    </script>

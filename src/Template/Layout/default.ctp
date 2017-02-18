@@ -42,7 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         *{
             font-family: 'Lato', sans-serif;
         }
-</style>
+    </style>
     
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
